@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  /* Barra de navegación */
+  .navbar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  /* Animación de desvanecimiento para la barra */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .navbar-brand {
+    font-weight: 600;
+    font-size: 1.7rem;
+    color: #2c3e50 !important;
+    transition: color 0.3s ease;
+  }
+
+  .navbar-brand:hover {
+    color: #007bff !important;
+  }
+
+  .nav-link {
+    color: #2c3e50 !important;
+    margin-right: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #007bff !important;
+    transform: translateY(-5px);
+  }
+
+  /* Animación de entrada para el menú */
+  .collapse {
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .whatsapp-btn {
+position: fixed;
+bottom: 30px;
+right: 30px;  /* Ajuste para más uniformidad */
+background-color: #25D366;
+color: white;
+border-radius: 50%;  /* Esto asegura que sea un círculo */
+padding: 20px;  /* Asegura un tamaño adecuado */
+width: 60px;  /* Ajuste al ancho para un círculo perfecto */
+height: 60px;  /* Ajuste al alto para un círculo perfecto */
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+font-size: 24px;
+z-index: 1000;
+transition: transform 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+transform: scale(1.1);
+}
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
