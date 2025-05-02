@@ -1,70 +1,111 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 08-04-2025 a las 03:22:37
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+/*
+ Navicat Premium Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : cnn
+ Source Server Type    : MySQL
+ Source Server Version : 100432 (10.4.32-MariaDB)
+ Source Host           : localhost:3306
+ Source Schema         : olimpo
 
+ Target Server Type    : MySQL
+ Target Server Version : 100432 (10.4.32-MariaDB)
+ File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ Date: 01/05/2025 21:43:20
+*/
 
---
--- Base de datos: `olimpo`
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Table structure for alquiler
+-- ----------------------------
+DROP TABLE IF EXISTS `alquiler`;
+CREATE TABLE `alquiler`  (
+  `id_alquiler` int NOT NULL AUTO_INCREMENT,
+  `dni` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `datos` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `dias` int NULL DEFAULT NULL,
+  `id_habi` int NULL DEFAULT NULL,
+  `pago` float NULL DEFAULT NULL,
+  `fecha_inicio` date NULL DEFAULT NULL,
+  `fecha_fin` date NULL DEFAULT NULL,
+  `metodo_pago` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `id_usuario` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id_alquiler`) USING BTREE,
+  INDEX `alquiler_habitacion`(`id_habi` ASC) USING BTREE,
+  INDEX `usuario_alquiler`(`id_usuario` ASC) USING BTREE,
+  CONSTRAINT `alquiler_habitacion` FOREIGN KEY (`id_habi`) REFERENCES `habitaciones` (`id_habi`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `usuario_alquiler` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Estructura de tabla para la tabla `usuarios`
---
+-- ----------------------------
+-- Records of alquiler
+-- ----------------------------
+INSERT INTO `alquiler` VALUES (1, '76531080', 'juan palacios', 3, 3, 120, '2025-04-08', '2025-04-11', 'efectivo', 1);
 
-CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
-  `password` char(15) NOT NULL,
-  `datos` varchar(200) NOT NULL,
-  `rol` varchar(100) NOT NULL,
-  `telefono` char(9) NOT NULL,
-  `foto` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- ----------------------------
+-- Table structure for categoria_habitacion
+-- ----------------------------
+DROP TABLE IF EXISTS `categoria_habitacion`;
+CREATE TABLE `categoria_habitacion`  (
+  `categoria_id` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `Descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`categoria_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Volcado de datos para la tabla `usuarios`
---
+-- ----------------------------
+-- Records of categoria_habitacion
+-- ----------------------------
+INSERT INTO `categoria_habitacion` VALUES (1, 'Personal', 'Solo una cama');
+INSERT INTO `categoria_habitacion` VALUES (2, 'Doble', 'Dos camas');
+INSERT INTO `categoria_habitacion` VALUES (3, 'Familiar', 'Cinco camas');
 
-INSERT INTO `usuarios` (`id_usuario`, `usuario`, `password`, `datos`, `rol`, `telefono`, `foto`) VALUES
-(1, 'admin', 'admin', 'juanito', 'administrador', '77774110', '');
+-- ----------------------------
+-- Table structure for habitaciones
+-- ----------------------------
+DROP TABLE IF EXISTS `habitaciones`;
+CREATE TABLE `habitaciones`  (
+  `id_habi` int NOT NULL AUTO_INCREMENT,
+  `numero_habi` int NULL DEFAULT NULL,
+  `precio` float NULL DEFAULT NULL,
+  `categoria_id` int NULL DEFAULT NULL,
+  `estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_habi`) USING BTREE,
+  INDEX `habitacion y categoria`(`categoria_id` ASC) USING BTREE,
+  CONSTRAINT `habitacion y categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categoria_habitacion` (`categoria_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Índices para tablas volcadas
---
+-- ----------------------------
+-- Records of habitaciones
+-- ----------------------------
+INSERT INTO `habitaciones` VALUES (1, 720, 80, 1, 'disponible');
+INSERT INTO `habitaciones` VALUES (2, 820, 150, 2, 'ocupado');
+INSERT INTO `habitaciones` VALUES (3, 320, 220, 3, 'limpieza');
+INSERT INTO `habitaciones` VALUES (4, 721, 80, 1, 'disponible');
+INSERT INTO `habitaciones` VALUES (5, 821, 150, 2, 'ocupado');
+INSERT INTO `habitaciones` VALUES (6, 120, 80, 1, 'disponible');
+INSERT INTO `habitaciones` VALUES (7, 189, 80, 1, 'disponible');
 
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`);
+-- ----------------------------
+-- Table structure for usuarios
+-- ----------------------------
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios`  (
+  `id_usuario` int NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `datos` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `rol` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `telefono` char(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `foto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_usuario`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
+-- ----------------------------
+-- Records of usuarios
+-- ----------------------------
+INSERT INTO `usuarios` VALUES (1, 'admin', 'admin', 'Alexander Y.Simbala', 'administrador', '77774110', '');
 
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;

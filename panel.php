@@ -30,10 +30,9 @@ if (!isset($_SESSION['usuario'])) {
 <div class="container-tp" id="bhoriz">
         <div class="perfil" data-bs-toggle="modal" data-bs-target="#perfilModal">
         <div id="foto2">
-                <img src="img/LOGO.png" alt="Foto de perfil">
             </div>
             <div id="foto">
-                <img src="img/fotoperfil.jpg" alt="Foto de perfil">
+                <img src="img/usuario.png" alt="Foto de perfil">
             </div>
             <div id="nombre">
                 <h5>
@@ -92,12 +91,7 @@ if (!isset($_SESSION['usuario'])) {
         </div>  
     </div>
     <div class="menu-item">
-        <a href="#"><i class="fa-solid fa-bed"></i><span>Habitaciones</span></a>
-        <div class="submenu">
-            <a href="#" id="per">Personal</a>
-            <a href="#" id="dob">Dobles</a>
-            <a href="#" id="fam">Familiar</a>
-        </div>
+        <a id="habi" href="#"><i class="fa-solid fa-bed"></i><span>Habitaciones</span></a>
     </div>
     <div class="menu-item">
         <a href="#"><i class="fa-solid fa-newspaper"></i><span>Reservas</span></a>
@@ -138,12 +132,15 @@ if (!isset($_SESSION['usuario'])) {
 </div>
 
 <div id="vistas">
-    
+    <div id="logo">
+    <img  id="logo" src="img/logo2.png" alt="">
+    </div>
 </div>
 
 
 <script src="js/panel.js"></script>
 <script src="lib/jquery-3.7.1.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ sidebar.addEventListener('mouseout', function() {
 $(document).ready(function () {
  
     // productos
-    $("#hab").click(function (e) {
+    $("#habi").click(function (e) {
       e.preventDefault(); 
       $("#vistas").load("view/habitaciones.php"); 
     });
